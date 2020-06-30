@@ -193,6 +193,7 @@ namespace FortnoxAPILibrary
         /// <returns>An entity</returns>
         internal T DoRequest<T>(T entity = default(T))
         {
+            Thread.Sleep(250);
             HttpWebRequest wr = this.SetupRequest(this.RequestUriString, Method);
             this.ResponseXml = "";
             try
@@ -242,7 +243,6 @@ namespace FortnoxAPILibrary
                                     try
                                     {
                                         var result = (T)xs.Deserialize(new StringReader(this.ResponseXml));
-                                        Thread.Sleep(250);
                                         return result;
                                     }
                                     catch (Exception e)
@@ -254,7 +254,6 @@ namespace FortnoxAPILibrary
                             else if (this.ResponseType == RequestResponseType.EMAIL)
                             {
                                 var result = default(T);
-                                Thread.Sleep(250);
                                 return result;
                             }
                             else
@@ -267,7 +266,6 @@ namespace FortnoxAPILibrary
                                     }
                                 }
                                 var result = default(T);
-                                Thread.Sleep(250);
                                 return result;
                             }
                         }
@@ -278,8 +276,7 @@ namespace FortnoxAPILibrary
             {
                 this.HandleException(we);
             }
-
-            Thread.Sleep(250);
+            
             return entity;
         }
 
